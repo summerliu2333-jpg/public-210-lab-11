@@ -17,9 +17,37 @@ struct Product {
     }
 };
 
+void inputProduct(Product *pptr) {
+    static int nrProd = 1;
+    cout << "Input data for Product #" << nrProd << ": ";
+    cout << "Name: ";
+    getline(cin, pptr->name);
+    cout << "SKU: ";
+    cin >> pptr->sku;
+    
+    // Allocate dynamic array for batch quantities
+    pptr->batch_quantities = new int[NR_BATCHES];  
+    for (int i = 0; i < NR_BATCHES; i++) {
+        cout << "Batch #" << i + 1 << " quantity: ";
+        cin >> pptr->batch_quantities[i];
+    }
+    
+    cin.ignore();
+    cout << endl << endl;
+    nrProd++;
+}
+
 void inputProduct(Product *);
 void displayProduct(Product *);
 
 int main() {
+    Product *inventory = new Product[NR_PRODUCTS];
+    
+    // Input product data
+    for (int i = 0; i < NR_PRODUCTS; i++)
+    inputProduct(&inventory[i]);
+
+    delete[] inventory;
+    inventory = nullptr;
     return 0;
 }
