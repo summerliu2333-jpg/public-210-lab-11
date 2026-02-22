@@ -37,6 +37,16 @@ void inputProduct(Product *pptr) {
     nrProd++;
 }
 
+void displayProduct(Product *pptr) {
+    cout << "Product summary: ";
+    cout << "Name: " << pptr->name << endl;
+    cout << "SKU: " << pptr->sku << endl;
+    for (int i = 0; i < NR_BATCHES; i++)
+        cout << "Batch #" << i + 1 << " quantity: "
+             << pptr->batch_quantities[i] << endl;
+    cout << endl << endl;
+}
+
 void inputProduct(Product *);
 void displayProduct(Product *);
 
@@ -47,6 +57,10 @@ int main() {
     for (int i = 0; i < NR_PRODUCTS; i++)
     inputProduct(&inventory[i]);
 
+    // Display data
+    for (int i = 0; i < NR_PRODUCTS; i++)
+    displayProduct(&inventory[i]);
+    
     delete[] inventory;
     inventory = nullptr;
     return 0;
